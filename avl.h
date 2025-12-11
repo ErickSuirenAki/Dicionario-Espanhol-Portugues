@@ -1,34 +1,28 @@
-#include <stdio.h>
+#ifndef AVL_H
+#define AVL_H
 
-typedef struct no {
+typedef struct No {
     char espanhol[50];
     char portugues[50];
     char conjugacoes[100];
+    char significado[100];
     int altura;
-
-    struct no *esq;
-    struct no *dir;
+    struct No *esq;
+    struct No *dir;
 } No;
 
-typedef struct {
-    No *raiz;
-} ArvAVL;
-
-void criarVazia(ArvAVL *arvore);
-int altura(No *n);
-int fatorBalanceamento(No *n);
-int max(int a, int b);
-No* rotacaoDireita(No *y);
-No* rotacaoEsquerda(No *x);
-No* rotacaoEsqDir(No *n);
-No* rotacaoDirEsq(No *n);
-No* inserirAvl(No *raiz, char esp[], char por[], char conj[]);
-No* removerAvl(No *raiz, char esp[]);
-No* buscarEspanhol(No *raiz, char esp[]);
-void buscarPortugues(No *raiz, char por[], int *encontrado);
+No* criarVazia();
+int altura(No *raiz);
+int fatorBalanceamento(No *raiz);
+No* rotacaoDireita(No *raiz);
+No* rotacaoEsquerda(No *raiz);
+No* balancear(No *raiz);
+No* inserirAvl(No *raiz, char *espanhol, char *portugues, char *conjugacoes, char *significado);
+No* removerAvl(No *raiz, char *espanhol);
+No* buscarEspanhol(No *raiz, char *espanhol);
+No* buscarPortugues(No *raiz, char *portugues);
 void listarAvl(No *raiz);
-void exibirArvore(No *raiz, int nivel);
-No* carregarDoArquivo(No *raiz, const char *nome);
-void salvarAvl(No *raiz, FILE  *f);
-
+void salvarAvl(FILE *file, No *raiz);
 void destruirAvl(No *raiz);
+
+#endif
